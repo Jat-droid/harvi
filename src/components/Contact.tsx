@@ -1,23 +1,32 @@
 import { useState } from 'react';
 import { Mail, MapPin, Phone } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError(null);
+    
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get('email') as string;
+    
+    // Basic validation
+    if (!email.includes('@')) {
+      setError("Please enter a valid email address.");
+      setIsSubmitting(false);
+      return;
+    }
     
     // Mock submission
     setTimeout(() => {
-      console.log("Form submitted successfully!");
       setIsSubmitting(false);
-      setIsSuccess(true);
-      
-      // Reset form success message after a while
-      setTimeout(() => setIsSuccess(false), 5000);
+      navigate('/thank-you');
     }, 1500);
   };
 
@@ -70,40 +79,32 @@ const Contact = () => {
           <div className="relative">
             <div className="absolute inset-0 bg-primary-600 rounded-[2rem] transform rotate-3 opacity-10"></div>
             <div className="bg-white p-8 md:p-12 rounded-[2rem] shadow-xl relative z-10 border border-slate-100">
-              {isSuccess ? (
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="h-full flex flex-col items-center justify-center text-center py-12"
-                >
-                  <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-6">
-                    <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-                  </div>
-                  <h4 className="text-2xl font-bold text-slate-900 mb-2">Message Sent!</h4>
-                  <p className="text-slate-600">Thank you for reaching out. Our team will get back to you within 24 hours.</p>
-                </motion.div>
-              ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {error && (
+                    <div className="p-4 bg-red-50 text-red-600 rounded-xl border border-red-100 font-medium">
+                      {error}
+                    </div>
+                  )}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-slate-700 mb-2">First Name</label>
-                      <input required type="text" className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all" placeholder="John" />
+                      <input name="firstName" required type="text" className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all" placeholder="John" />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-slate-700 mb-2">Last Name</label>
-                      <input required type="text" className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all" placeholder="Doe" />
+                      <input name="lastName" required type="text" className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all" placeholder="Doe" />
                     </div>
                   </div>
                   
                   <div>
                     <label className="block text-sm font-medium text-slate-700 mb-2">Email Address</label>
-                    <input required type="email" className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all" placeholder="john@company.com" />
+                    <input name="email" required type="email" className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all" placeholder="john@company.com" />
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-slate-700 mb-2">Service Interest</label>
-                    <select required className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-700">
-                      <option value="" disabled selected>Select a service...</option>
+                    <select name="service" required defaultValue="" className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-700">
+                      <option value="" disabled>Select a service...</option>
                       <option value="app">Custom App Development</option>
                       <option value="web">Website Development</option>
                       <option value="crm">CRM Solutions</option>
@@ -114,7 +115,7 @@ const Contact = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-slate-700 mb-2">Message</label>
-                    <textarea required rows={4} className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all resize-none" placeholder="Tell us about your project..."></textarea>
+                    <textarea name="message" required rows={4} className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all resize-none" placeholder="Tell us about your project..."></textarea>
                   </div>
 
                   <button 
@@ -130,7 +131,6 @@ const Contact = () => {
                     ) : "Establish Uplink"}
                   </button>
                 </form>
-              )}
             </div>
           </div>
 
