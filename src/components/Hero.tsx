@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import ParticleNetwork from './ParticleNetwork';
 
 const services = [
-  "Neural App Mobility",
+  "Mobile App Development",
   "Web Architecture",
   "Enterprise CRM Hubs",
   "Automated ERP Nodes"
@@ -115,7 +115,7 @@ const Hero = () => {
               href="#portfolio"
               className="px-8 py-4 text-lg font-medium text-slate-800 bg-white border border-slate-200 hover:border-slate-300 rounded-full shadow-sm transition-all w-full sm:w-auto text-center"
             >
-              Explore Registry
+              View Our Work
             </motion.a>
           </div>
         </motion.div>

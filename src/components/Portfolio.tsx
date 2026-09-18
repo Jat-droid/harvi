@@ -39,7 +39,7 @@ const Portfolio = () => {
             <h3 className="text-3xl md:text-5xl font-bold text-slate-900">Proven track record of excellence.</h3>
           </div>
           <a href="#" className="mt-6 md:mt-0 inline-flex items-center text-sm font-bold text-slate-900 hover:text-primary-600 transition-colors uppercase tracking-wider">
-            Explore Registry <ExternalLink className="ml-2 w-4 h-4" />
+            View Our Work <ExternalLink className="ml-2 w-4 h-4" />
           </a>
         </div>
 

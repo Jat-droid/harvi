@@ -5,7 +5,7 @@ import { Smartphone, Globe, Users, Database, ArrowRight } from 'lucide-react';
 const services = [
   {
     icon: <Smartphone className="w-8 h-8 text-primary-500" />,
-    title: "Neural App Mobility",
+    title: "Mobile App Development",
     description: "High-performance iOS and Android applications with fluid animations and native hardware integration."
   },
   {

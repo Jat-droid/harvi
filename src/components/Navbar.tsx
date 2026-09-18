@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import logo from '../assets/logo.png';
+import hvLogo from '../../public/favicon.png';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -29,22 +31,9 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <a href="#home" className="text-2xl font-normal tracking-tight text-slate-900 flex items-center">
-          <span className="font-normal text-[1.15em] mr-1.5 tracking-[-0.08em]">
-            ℋ𝒶𝓇𝓋
-            <span className="relative inline-grid">
-              <span className="col-start-1 row-start-1 text-slate-900">𝒾</span>
-              <span className="col-start-1 row-start-1 text-primary-500" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 40%, 0 40%)' }}>𝒾</span>
-            </span>
-          </span>
-          <span className="tracking-tight">
-            IT Solut
-            <span className="relative inline-grid">
-              <span className="col-start-1 row-start-1 text-slate-900">i</span>
-              <span className="col-start-1 row-start-1 text-primary-500" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 35%, 0 35%)' }}>i</span>
-            </span>
-            ons
-          </span>
+        <a href="#home" className="text-2xl font-normal tracking-tight text-slate-900 flex items-center h-10">
+          <img src={hvLogo} alt="hv" className="h-12 w-auto object-contain mr-2" style={{ mixBlendMode: 'multiply' }} />
+          <img src={logo} alt="Harvi IT Solutions" className="h-10 w-auto object-contain scale-[1.6] origin-left" style={{ mixBlendMode: 'multiply' }} />
         </a>
 
         {/* Desktop Nav */}
@@ -62,7 +51,7 @@ const Navbar = () => {
             href="#contact"
             className="px-5 py-2.5 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-full transition-colors shadow-lg shadow-primary-500/30"
           >
-            Establish Uplink
+            Start a Project
           </a>
         </nav>
 
@@ -97,7 +86,7 @@ const Navbar = () => {
             onClick={() => setIsMobileMenuOpen(false)}
             className="text-center px-5 py-3 text-base font-medium text-white bg-primary-600 rounded-lg"
           >
-            Establish Uplink
+            Start a Project
           </a>
         </motion.div>
       )}

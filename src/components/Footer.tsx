@@ -1,24 +1,16 @@
 import { Mail, Globe, Briefcase, Hash } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import logo from '../assets/logo.png';
+import hvLogo from '../../public/favicon.png';
 
 const Footer = () => {
   return (
     <footer className="bg-dark text-slate-400 py-12 border-t border-slate-800 relative z-10">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
         <div className="col-span-1 md:col-span-2">
-          <Link to="/" className="text-2xl font-bold tracking-tight text-white mb-4 block">
-            <span style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', position: 'relative', display: 'inline-block' }}>
-              Harvi
-              <span style={{
-                position: 'absolute',
-                top: '0',
-                left: '0',
-                width: '100%',
-                height: '50%',
-                color: '#f43f5e',
-                clipPath: 'polygon(0 0, 100% 0, 100% 30%, 0 30%)'
-              }} aria-hidden="true">Harvi</span>
-            </span> <span className="font-sans font-normal text-slate-200 text-xl ml-1 tracking-normal">IT Solutions</span>
+          <Link to="/" className="text-2xl font-bold tracking-tight text-white mb-4 flex items-center w-fit">
+            <img src={hvLogo} alt="hv" className="h-10 w-auto object-contain mr-2" style={{ mixBlendMode: 'multiply' }} />
+            <img src={logo} alt="Harvi IT Solutions" className="h-14 w-auto object-contain" style={{ mixBlendMode: 'multiply' }} />
           </Link>
           <p className="mt-4 max-w-sm text-sm leading-relaxed">
             Empowering businesses with enterprise-grade IT solutions, from custom apps to comprehensive ERPs. We blend startup agility with enterprise reliability.
