@@ -9,6 +9,9 @@ import CookieBanner from '../components/CookieBanner';
 export const metadata: Metadata = {
   title: 'Harvi IT Solutions | Enterprise AI & Web Architecture',
   description: 'We build enterprise-grade software with startup speed. Elevate your business with scalable, futuristic IT solutions including CRM, ERP, and Web Architecture.',
+  icons: {
+    icon: '/logo.png',
+  },
 };
 
 export default function RootLayout({
