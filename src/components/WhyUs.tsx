@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Zap, ShieldCheck, Code2 } from 'lucide-react';
@@ -22,7 +23,7 @@ const reasons = [
 
 const WhyUs = () => {
   return (
-    <section className="py-24 bg-slate-50 relative overflow-hidden">
+    <section id="about" className="py-24 bg-slate-50 relative overflow-hidden">
       <div className="absolute right-0 top-0 w-1/3 h-full bg-primary-50 rounded-l-[100px] -z-0 opacity-50 hidden lg:block"></div>
       
       <div className="max-w-7xl mx-auto px-6 relative z-10">

@@ -1,15 +1,10 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { ArrowRight, AlertTriangle } from 'lucide-react';
 
 const NotFound = () => {
   return (
     <div className="min-h-screen flex items-center justify-center pt-20 bg-slate-50 relative overflow-hidden">
-      <Helmet>
-        <title>Page Not Found | Harvi IT Solutions</title>
-        <meta name="robots" content="noindex, nofollow" />
-      </Helmet>
       
       <div className="absolute inset-0 futuristic-grid opacity-30 z-0"></div>
       
@@ -23,7 +18,7 @@ const NotFound = () => {
           The requested node could not be found in our network. It may have been relocated or decommissioned.
         </p>
         <Link 
-          to="/"
+          href="/"
           className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-full shadow-xl shadow-primary-500/20 transition-all group"
         >
           Return to Registry

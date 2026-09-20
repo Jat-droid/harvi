@@ -1,14 +1,16 @@
+"use client";
 import { useState } from 'react';
 import { Mail, MapPin, Phone } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+import { submitContactForm } from '../app/actions/contact';
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate();
+  const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError(null);
@@ -23,11 +25,15 @@ const Contact = () => {
       return;
     }
     
-    // Mock submission
-    setTimeout(() => {
+    // Server Action submission
+    const result = await submitContactForm(formData);
+    
+    if (result.success) {
+      router.push('/thank-you');
+    } else {
+      setError(result.error || "An error occurred");
       setIsSubmitting(false);
-      navigate('/thank-you');
-    }, 1500);
+    }
   };
 
   return (
@@ -50,26 +56,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="font-bold text-slate-900 mb-1">Email Us</h4>
-                  <p className="text-slate-600">hello@harvi-it.com</p>
-                  <p className="text-slate-600">support@harvi-it.com</p>
-                </div>
-              </div>
-              <div className="flex items-start">
-                <div className="w-12 h-12 bg-primary-50 text-primary-600 rounded-full flex items-center justify-center mr-5 shrink-0">
-                  <Phone size={20} />
-                </div>
-                <div>
-                  <h4 className="font-bold text-slate-900 mb-1">Call Us</h4>
-                  <p className="text-slate-600">+1 (555) 123-4567</p>
-                </div>
-              </div>
-              <div className="flex items-start">
-                <div className="w-12 h-12 bg-primary-50 text-primary-600 rounded-full flex items-center justify-center mr-5 shrink-0">
-                  <MapPin size={20} />
-                </div>
-                <div>
-                  <h4 className="font-bold text-slate-900 mb-1">Visit Us</h4>
-                  <p className="text-slate-600">100 Tech Hub Blvd, Suite 400<br />San Francisco, CA 94107</p>
+                  <p className="text-slate-600">harviitsolutions@gmail.com</p>
                 </div>
               </div>
             </div>

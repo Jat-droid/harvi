@@ -1,13 +1,9 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
 
 const Terms = () => {
   return (
     <div className="pt-32 pb-24 bg-white min-h-screen">
-      <Helmet>
-        <title>Terms & Conditions | Harvi IT Solutions</title>
-        <meta name="description" content="Terms and Conditions for Harvi IT Solutions." />
-      </Helmet>
+
       <div className="max-w-4xl mx-auto px-6 prose prose-slate prose-a:text-primary-600 max-w-none">
         <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-8 tracking-tight">Terms & Conditions</h1>
         <p className="text-slate-500 mb-10">Last updated: {new Date().toLocaleDateString()}</p>

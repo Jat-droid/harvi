@@ -1,13 +1,15 @@
+"use client";
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import ParticleNetwork from './ParticleNetwork';
 
 const services = [
-  "Mobile App Development",
+  "App Development",
   "Web Architecture",
   "Enterprise CRM Hubs",
-  "Automated ERP Nodes"
+  "Automated ERP Nodes",
+  "AI Solutions"
 ];
 
 const titleText = "Next-Generation";

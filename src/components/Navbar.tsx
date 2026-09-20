@@ -1,8 +1,8 @@
+"use client";
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import logo from '../assets/logo.png';
-import hvLogo from '../../public/favicon.png';
+
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -32,8 +32,8 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <a href="#home" className="text-2xl font-normal tracking-tight text-slate-900 flex items-center h-10">
-          <img src={hvLogo} alt="hv" className="h-12 w-auto object-contain mr-2" style={{ mixBlendMode: 'multiply' }} />
-          <img src={logo} alt="Harvi IT Solutions" className="h-10 w-auto object-contain scale-[1.6] origin-left" style={{ mixBlendMode: 'multiply' }} />
+          <img src="/favicon.png" alt="hv" className="h-12 w-auto object-contain mr-2" style={{ mixBlendMode: 'multiply' }} />
+          <img src="/logo.png" alt="Harvi IT Solutions" className="h-10 w-auto object-contain scale-[1.6] origin-left" style={{ mixBlendMode: 'multiply' }} />
         </a>
 
         {/* Desktop Nav */}

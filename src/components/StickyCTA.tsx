@@ -1,14 +1,15 @@
+"use client";
 import React, { useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
-import { useLocation } from 'react-router-dom';
+import { usePathname } from 'next/navigation';
 
 const StickyCTA = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const location = useLocation();
+  const pathname = usePathname();
 
   useEffect(() => {
     // Only show on home page after scrolling down a bit
-    if (location.pathname !== '/') {
+    if (pathname !== '/') {
       setIsVisible(false);
       return;
     }
@@ -24,7 +25,7 @@ const StickyCTA = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [location.pathname]);
+  }, [pathname]);
 
   if (!isVisible) return null;
 
