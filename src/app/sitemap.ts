@@ -13,12 +13,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/services/software-development',
     '/services/ai-solutions',
     '/blog',
-    '/case-studies'
+    '/case-studies',
+    '/privacy',
+    '/terms',
   ].map((route) => ({
     url: `${siteConfig.url}${route}`,
     lastModified: new Date().toISOString(),
-    changeFrequency: 'weekly' as const,
-    priority: route === '' ? 1.0 : 0.8,
+    changeFrequency: (route === '/privacy' || route === '/terms' ? 'yearly' : 'weekly') as const,
+    priority: route === '' ? 1.0 : (route === '/privacy' || route === '/terms' ? 0.5 : 0.8),
   }));
 
   return [...routes];
