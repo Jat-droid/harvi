@@ -10,8 +10,8 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
         <div className="col-span-1 md:col-span-2">
           <Link href="/" className="text-2xl font-bold tracking-tight text-slate-900 mb-4 flex items-center w-fit">
-            <img src="/favicon.png" alt="hv" className="h-10 w-auto object-contain mr-2" style={{ mixBlendMode: 'multiply' }} />
-            <img src="/logo.png" alt="Harvi IT Solutions" className="h-14 w-auto object-contain" style={{ mixBlendMode: 'multiply' }} />
+            <img src="/favicon.png" alt="Harvi IT Solutions Monogram Logo" className="h-10 w-auto object-contain mr-2" style={{ mixBlendMode: 'multiply' }} />
+            <img src="/logo.png" alt="Harvi IT Solutions Full Logo" className="h-14 w-auto object-contain" style={{ mixBlendMode: 'multiply' }} />
           </Link>
           <p className="mt-4 max-w-sm text-sm leading-relaxed">
             Empowering businesses with enterprise-grade IT solutions, from custom apps to comprehensive ERPs. We blend startup agility with enterprise reliability.
@@ -26,19 +26,19 @@ const Footer = () => {
         <div>
           <h4 className="text-slate-900 font-semibold mb-4">Services</h4>
           <ul className="space-y-2 text-sm">
-            <li><a href="#services" className="hover:text-primary-600 transition-colors">Custom App Development</a></li>
-            <li><a href="#services" className="hover:text-primary-600 transition-colors">Website Development</a></li>
-            <li><a href="#services" className="hover:text-primary-600 transition-colors">CRM Solutions</a></li>
-            <li><a href="#services" className="hover:text-primary-600 transition-colors">ERP Systems</a></li>
+            <li><Link href="/services/mobile-app-development" className="hover:text-primary-600 transition-colors">Mobile App Development</Link></li>
+            <li><Link href="/services/web-development" className="hover:text-primary-600 transition-colors">Web Architecture</Link></li>
+            <li><Link href="/services/software-development" className="hover:text-primary-600 transition-colors">Custom Software (ERP/CRM)</Link></li>
+            <li><Link href="/services/ai-solutions" className="hover:text-primary-600 transition-colors">AI & Automation</Link></li>
           </ul>
         </div>
 
         <div>
           <h4 className="text-slate-900 font-semibold mb-4">Company</h4>
           <ul className="space-y-2 text-sm">
-            <li><a href="#about" className="hover:text-primary-600 transition-colors">About Us</a></li>
-            <li><a href="#portfolio" className="hover:text-primary-600 transition-colors">Portfolio</a></li>
-            <li><a href="#contact" className="hover:text-primary-600 transition-colors">Contact</a></li>
+            <li><Link href="/about" className="hover:text-primary-600 transition-colors">About Us</Link></li>
+            <li><Link href="/portfolio" className="hover:text-primary-600 transition-colors">Portfolio</Link></li>
+            <li><Link href="/contact" className="hover:text-primary-600 transition-colors">Contact</Link></li>
             <li><Link href="/privacy" className="hover:text-primary-600 transition-colors">Privacy Policy</Link></li>
             <li><Link href="/terms" className="hover:text-primary-600 transition-colors">Terms & Conditions</Link></li>
           </ul>

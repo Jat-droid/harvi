@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 import ParticleNetwork from './ParticleNetwork';
 
 const services = [
@@ -102,23 +103,25 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-            <motion.a
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              href="#contact"
-              className="px-8 py-4 text-lg font-medium text-white bg-dark hover:bg-slate-800 rounded-full shadow-2xl transition-all w-full sm:w-auto flex items-center justify-center"
-            >
-              Initialize Project
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </motion.a>
-            <motion.a
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              href="#portfolio"
-              className="px-8 py-4 text-lg font-medium text-slate-800 bg-white border border-slate-200 hover:border-slate-300 rounded-full shadow-sm transition-all w-full sm:w-auto text-center"
-            >
-              View Our Work
-            </motion.a>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
+              <Link 
+                href="/contact" 
+                title="Initialize your IT Project with us"
+                className="px-8 py-4 text-lg font-medium text-white bg-dark hover:bg-slate-800 rounded-full shadow-2xl transition-all flex items-center justify-center w-full"
+              >
+                Initialize Project
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
+              <Link 
+                href="/portfolio" 
+                title="View our completed IT solutions portfolio"
+                className="px-8 py-4 text-lg font-medium text-slate-800 bg-white border border-slate-200 hover:border-slate-300 rounded-full shadow-sm transition-all flex items-center justify-center w-full text-center"
+              >
+                View Our Work
+              </Link>
+            </motion.div>
           </div>
         </motion.div>
       </div>

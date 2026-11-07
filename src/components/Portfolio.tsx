@@ -2,6 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
+import Link from 'next/link';
 
 const projects = [
   {
@@ -39,9 +40,9 @@ const Portfolio = () => {
             <h2 className="text-sm font-bold text-primary-600 uppercase tracking-widest mb-2">Audit Portfolio</h2>
             <h3 className="text-3xl md:text-5xl font-bold text-slate-900">Proven track record of excellence.</h3>
           </div>
-          <a href="#" className="mt-6 md:mt-0 inline-flex items-center text-sm font-bold text-slate-900 hover:text-primary-600 transition-colors uppercase tracking-wider">
-            View Our Work <ExternalLink className="ml-2 w-4 h-4" />
-          </a>
+          <Link href="/portfolio" className="mt-6 md:mt-0 inline-flex items-center text-sm font-bold text-slate-900 hover:text-primary-600 transition-colors uppercase tracking-wider">
+            View Full Portfolio <ExternalLink className="ml-2 w-4 h-4" />
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -57,7 +58,8 @@ const Portfolio = () => {
               <div className="aspect-[4/3] w-full overflow-hidden bg-slate-100">
                 <img 
                   src={project.image} 
-                  alt={project.title} 
+                  alt={`Screenshot of our ${project.title} project`} 
+
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter group-hover:brightness-75"
                 />
               </div>

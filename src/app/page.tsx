@@ -1,4 +1,5 @@
 import Hero from '../components/Hero';
+import GeoBlock from '../components/GeoBlock';
 import Services from '../components/Services';
 import WhyUs from '../components/WhyUs';
 import Portfolio from '../components/Portfolio';
@@ -11,6 +12,7 @@ export default function Home() {
   return (
     <main>
       <Hero />
+      <GeoBlock />
       <Services />
       <WhyUs />
       <Portfolio />

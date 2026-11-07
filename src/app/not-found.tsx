@@ -1,32 +1,36 @@
-import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, AlertTriangle } from 'lucide-react';
 
-const NotFound = () => {
+export default function NotFound() {
   return (
-    <div className="min-h-screen flex items-center justify-center pt-20 bg-slate-50 relative overflow-hidden">
-      
-      <div className="absolute inset-0 futuristic-grid opacity-30 z-0"></div>
-      
-      <div className="relative z-10 text-center px-6 max-w-lg">
-        <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary-100 text-primary-600 mb-8">
-          <AlertTriangle size={40} />
-        </div>
-        <h1 className="text-6xl font-extrabold text-slate-900 mb-4 tracking-tight">404</h1>
-        <h2 className="text-2xl font-bold text-slate-800 mb-6">Connection Lost</h2>
-        <p className="text-slate-600 mb-10 text-lg">
-          The requested node could not be found in our network. It may have been relocated or decommissioned.
+    <main className="min-h-screen flex items-center justify-center bg-slate-50 px-6 pt-20">
+      <div className="max-w-xl mx-auto text-center">
+        <h1 className="text-8xl font-extrabold text-slate-200 mb-4 tracking-tighter">404</h1>
+        <h2 className="text-3xl font-bold text-slate-900 mb-6">Page Not Found</h2>
+        <p className="text-lg text-slate-600 mb-10">
+          The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
         </p>
-        <Link 
-          href="/"
-          className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-full shadow-xl shadow-primary-500/20 transition-all group"
-        >
-          Return to Registry
-          <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-        </Link>
+        
+        <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+          <Link 
+            href="/"
+            className="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-full transition-colors w-full sm:w-auto"
+          >
+            Return Home
+          </Link>
+          <Link 
+            href="/services"
+            className="px-6 py-3 bg-white border border-slate-200 hover:border-slate-300 text-slate-700 font-medium rounded-full transition-colors w-full sm:w-auto"
+          >
+            Our Services
+          </Link>
+          <Link 
+            href="/contact"
+            className="px-6 py-3 bg-white border border-slate-200 hover:border-slate-300 text-slate-700 font-medium rounded-full transition-colors w-full sm:w-auto"
+          >
+            Contact Support
+          </Link>
+        </div>
       </div>
-    </div>
+    </main>
   );
-};
-
-export default NotFound;
+}

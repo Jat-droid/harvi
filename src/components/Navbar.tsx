@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import Link from 'next/link';
 
 
 const Navbar = () => {
@@ -17,11 +18,11 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'Services', href: '#services' },
-    { name: 'Portfolio', href: '#portfolio' },
-    { name: 'Process', href: '#process' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: '/' },
+    { name: 'About Us', href: '/about' },
+    { name: 'Services', href: '/services' },
+    { name: 'Portfolio', href: '/portfolio' },
+    { name: 'Contact', href: '/contact' },
   ];
 
   return (
@@ -31,28 +32,28 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <a href="#home" className="text-2xl font-normal tracking-tight text-slate-900 flex items-center h-10">
-          <img src="/favicon.png" alt="hv" className="h-12 w-auto object-contain mr-2" style={{ mixBlendMode: 'multiply' }} />
-          <img src="/logo.png" alt="Harvi IT Solutions" className="h-10 w-auto object-contain scale-[1.6] origin-left" style={{ mixBlendMode: 'multiply' }} />
-        </a>
+        <Link href="/" className="text-2xl font-normal tracking-tight text-slate-900 flex items-center h-10">
+          <img src="/favicon.png" alt="Harvi IT Solutions Monogram Logo" className="h-12 w-auto object-contain mr-2" style={{ mixBlendMode: 'multiply' }} />
+          <img src="/logo.png" alt="Harvi IT Solutions Full Logo" className="h-10 w-auto object-contain scale-[1.6] origin-left" style={{ mixBlendMode: 'multiply' }} />
+        </Link>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center space-x-8">
           {navLinks.map((link) => (
-            <a 
+            <Link 
               key={link.name}
               href={link.href}
               className="text-sm font-medium text-slate-600 hover:text-primary-600 transition-colors"
             >
               {link.name}
-            </a>
+            </Link>
           ))}
-          <a 
-            href="#contact"
+          <Link 
+            href="/contact"
             className="px-5 py-2.5 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-full transition-colors shadow-lg shadow-primary-500/30"
           >
             Start a Project
-          </a>
+          </Link>
         </nav>
 
         {/* Mobile Menu Toggle */}
@@ -72,22 +73,22 @@ const Navbar = () => {
           className="absolute top-full left-0 right-0 bg-white shadow-xl border-t border-slate-100 p-6 flex flex-col space-y-4 md:hidden"
         >
           {navLinks.map((link) => (
-            <a 
+            <Link 
               key={link.name}
               href={link.href}
               className="text-base font-medium text-slate-800 hover:text-primary-600"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               {link.name}
-            </a>
+            </Link>
           ))}
-          <a 
-            href="#contact"
+          <Link 
+            href="/contact"
             onClick={() => setIsMobileMenuOpen(false)}
             className="text-center px-5 py-3 text-base font-medium text-white bg-primary-600 rounded-lg"
           >
             Start a Project
-          </a>
+          </Link>
         </motion.div>
       )}
     </header>
