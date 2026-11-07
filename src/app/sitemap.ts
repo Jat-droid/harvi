@@ -19,9 +19,35 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ].map((route) => ({
     url: `${siteConfig.url}${route}`,
     lastModified: new Date().toISOString(),
-    changeFrequency: (route === '/privacy' || route === '/terms' ? 'yearly' : 'weekly') as const,
+    changeFrequency: (route === '/privacy' || route === '/terms' ? 'yearly' : 'weekly') as MetadataRoute.Sitemap[number]['changeFrequency'],
     priority: route === '' ? 1.0 : (route === '/privacy' || route === '/terms' ? 0.5 : 0.8),
   }));
 
-  return [...routes];
+  const blogSlugs = [
+    'future-of-enterprise-ai',
+    'nextjs-vs-vite-performance',
+    'scaling-crm-hubs',
+  ];
+
+  const caseStudySlugs = [
+    'global-logistics-erp',
+    'fintech-predictive-ai',
+  ];
+
+  const dynamicRoutes = [
+    ...blogSlugs.map((slug) => ({
+      url: `${siteConfig.url}/blog/${slug}`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    })),
+    ...caseStudySlugs.map((slug) => ({
+      url: `${siteConfig.url}/case-studies/${slug}`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })),
+  ];
+
+  return [...routes, ...dynamicRoutes];
 }
