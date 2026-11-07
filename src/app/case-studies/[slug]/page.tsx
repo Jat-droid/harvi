@@ -10,17 +10,19 @@ const fallbackCaseStudies = [
 ];
 
 export async function generateStaticParams() {
-  try {
-    const cases = await prisma.caseStudy.findMany({
-      where: { published: true },
-      select: { slug: true },
-    });
+  if (process.env.DATABASE_URL) {
+    try {
+      const cases = await prisma.caseStudy.findMany({
+        where: { published: true },
+        select: { slug: true },
+      });
 
-    if (cases && cases.length > 0) {
-      return cases.map((item) => ({ slug: item.slug }));
+      if (cases && cases.length > 0) {
+        return cases.map((item) => ({ slug: item.slug }));
+      }
+    } catch {
+      // Fallback if database is unavailable during build
     }
-  } catch (error) {
-    console.warn('Prisma fetch failed in generateStaticParams, using fallback:', error);
   }
 
   return fallbackCaseStudies.map((slug) => ({ slug }));
@@ -66,13 +68,15 @@ export default async function CaseStudy({ params }: { params: Promise<{ slug: st
     .join(' ');
 
   let caseData: { title?: string; industry?: string | null; content?: string | null; createdAt?: Date; updatedAt?: Date } | null = null;
-  try {
-    caseData = await prisma.caseStudy.findUnique({
-      where: { slug },
-      select: { title: true, industry: true, content: true, createdAt: true, updatedAt: true },
-    });
-  } catch {
-    // Graceful fallback for static prerender or offline DB
+  if (process.env.DATABASE_URL) {
+    try {
+      caseData = await prisma.caseStudy.findUnique({
+        where: { slug },
+        select: { title: true, industry: true, content: true, createdAt: true, updatedAt: true },
+      });
+    } catch {
+      // Graceful fallback for static prerender or offline DB
+    }
   }
 
   const publishedDate = caseData?.createdAt ? caseData.createdAt.toISOString() : '2026-09-20T00:00:00.000Z';

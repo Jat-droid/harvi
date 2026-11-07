@@ -11,17 +11,19 @@ const fallbackSlugs = [
 ];
 
 export async function generateStaticParams() {
-  try {
-    const posts = await prisma.blogPost.findMany({
-      where: { published: true },
-      select: { slug: true },
-    });
+  if (process.env.DATABASE_URL) {
+    try {
+      const posts = await prisma.blogPost.findMany({
+        where: { published: true },
+        select: { slug: true },
+      });
 
-    if (posts && posts.length > 0) {
-      return posts.map((post) => ({ slug: post.slug }));
+      if (posts && posts.length > 0) {
+        return posts.map((post) => ({ slug: post.slug }));
+      }
+    } catch {
+      // Fallback if database is unavailable during build
     }
-  } catch (error) {
-    console.warn('Prisma fetch failed in generateStaticParams, using fallback:', error);
   }
 
   return fallbackSlugs.map((slug) => ({ slug }));
@@ -67,13 +69,15 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     .join(' ');
 
   let postData: { title?: string; content?: string | null; createdAt?: Date; updatedAt?: Date } | null = null;
-  try {
-    postData = await prisma.blogPost.findUnique({
-      where: { slug },
-      select: { title: true, content: true, createdAt: true, updatedAt: true },
-    });
-  } catch {
-    // Graceful fallback for static generation or offline DB
+  if (process.env.DATABASE_URL) {
+    try {
+      postData = await prisma.blogPost.findUnique({
+        where: { slug },
+        select: { title: true, content: true, createdAt: true, updatedAt: true },
+      });
+    } catch {
+      // Graceful fallback for static generation or offline DB
+    }
   }
 
   const publishedDate = postData?.createdAt ? postData.createdAt.toISOString() : '2026-09-20T00:00:00.000Z';

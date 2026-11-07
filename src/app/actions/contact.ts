@@ -19,14 +19,15 @@ export async function submitContactForm(formData: FormData) {
   const message = formData.get('message') as string;
 
   try {
-    // 1. Save to Database
-    // Note: This will fail locally if DATABASE_URL is invalid, so we wrap in try/catch
-    try {
-      await prisma.lead.create({
-        data: { firstName, lastName, email, service, message }
-      });
-    } catch (dbError) {
-      console.warn("Database save failed (expected if DB is not provisioned yet):", dbError);
+    // 1. Save to Database (if database is configured)
+    if (process.env.DATABASE_URL) {
+      try {
+        await prisma.lead.create({
+          data: { firstName, lastName, email, service, message }
+        });
+      } catch (dbError) {
+        console.warn("Database save failed:", dbError);
+      }
     }
 
     // 2. Send Email via Resend

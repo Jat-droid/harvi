@@ -40,21 +40,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let blogRoutes: MetadataRoute.Sitemap = [];
   let caseStudyRoutes: MetadataRoute.Sitemap = [];
 
-  try {
-    // Dynamically fetch published blog posts from Prisma
-    const posts = await prisma.blogPost.findMany({
-      where: { published: true },
-      select: { slug: true, updatedAt: true },
-    });
+  if (process.env.DATABASE_URL) {
+    try {
+      // Dynamically fetch published blog posts from Prisma
+      const posts = await prisma.blogPost.findMany({
+        where: { published: true },
+        select: { slug: true, updatedAt: true },
+      });
 
-    if (posts && posts.length > 0) {
-      blogRoutes = posts.map((post) => ({
-        url: `${baseUrl}/blog/${post.slug}`,
-        lastModified: post.updatedAt,
-        changeFrequency: 'weekly' as const,
-        priority: 0.8,
-      }));
-    } else {
+      if (posts && posts.length > 0) {
+        blogRoutes = posts.map((post) => ({
+          url: `${baseUrl}/blog/${post.slug}`,
+          lastModified: post.updatedAt,
+          changeFrequency: 'weekly' as const,
+          priority: 0.8,
+        }));
+      } else {
+        blogRoutes = defaultBlogSlugs.map((slug) => ({
+          url: `${baseUrl}/blog/${slug}`,
+          lastModified: new Date(),
+          changeFrequency: 'weekly' as const,
+          priority: 0.8,
+        }));
+      }
+    } catch {
       blogRoutes = defaultBlogSlugs.map((slug) => ({
         url: `${baseUrl}/blog/${slug}`,
         lastModified: new Date(),
@@ -62,31 +71,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.8,
       }));
     }
-  } catch (error) {
-    console.warn('Prisma blog post fetch for sitemap failed, using static fallback:', error);
-    blogRoutes = defaultBlogSlugs.map((slug) => ({
-      url: `${baseUrl}/blog/${slug}`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    }));
-  }
 
-  try {
-    // Dynamically fetch published case studies from Prisma
-    const cases = await prisma.caseStudy.findMany({
-      where: { published: true },
-      select: { slug: true, updatedAt: true },
-    });
+    try {
+      // Dynamically fetch published case studies from Prisma
+      const cases = await prisma.caseStudy.findMany({
+        where: { published: true },
+        select: { slug: true, updatedAt: true },
+      });
 
-    if (cases && cases.length > 0) {
-      caseStudyRoutes = cases.map((item) => ({
-        url: `${baseUrl}/case-studies/${item.slug}`,
-        lastModified: item.updatedAt,
-        changeFrequency: 'monthly' as const,
-        priority: 0.8,
-      }));
-    } else {
+      if (cases && cases.length > 0) {
+        caseStudyRoutes = cases.map((item) => ({
+          url: `${baseUrl}/case-studies/${item.slug}`,
+          lastModified: item.updatedAt,
+          changeFrequency: 'monthly' as const,
+          priority: 0.8,
+        }));
+      } else {
+        caseStudyRoutes = defaultCaseStudySlugs.map((slug) => ({
+          url: `${baseUrl}/case-studies/${slug}`,
+          lastModified: new Date(),
+          changeFrequency: 'monthly' as const,
+          priority: 0.8,
+        }));
+      }
+    } catch {
       caseStudyRoutes = defaultCaseStudySlugs.map((slug) => ({
         url: `${baseUrl}/case-studies/${slug}`,
         lastModified: new Date(),
@@ -94,8 +102,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.8,
       }));
     }
-  } catch (error) {
-    console.warn('Prisma case study fetch for sitemap failed, using static fallback:', error);
+  } else {
+    blogRoutes = defaultBlogSlugs.map((slug) => ({
+      url: `${baseUrl}/blog/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    }));
+
     caseStudyRoutes = defaultCaseStudySlugs.map((slug) => ({
       url: `${baseUrl}/case-studies/${slug}`,
       lastModified: new Date(),
