@@ -4,33 +4,25 @@ import { ArrowRight } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
 const StickyCTA = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
+  const isHome = pathname === '/';
 
   useEffect(() => {
-    // Only show on home page after scrolling down a bit
-    if (pathname !== '/') {
-      setIsVisible(false);
-      return;
-    }
+    if (!isHome) return;
 
     const handleScroll = () => {
-      // Show CTA after scrolling down 500px
-      if (window.scrollY > 500) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+      setIsScrolled(window.scrollY > 500);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [pathname]);
+  }, [isHome]);
 
-  if (!isVisible) return null;
+  if (!isHome || !isScrolled) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 z-50 md:hidden animate-fade-in-up">
+    <aside aria-label="Quick contact call to action" className="fixed bottom-4 left-4 right-4 z-50 md:hidden animate-fade-in-up">
       <a
         href="#contact"
         className="flex items-center justify-center w-full px-6 py-4 bg-primary-600 hover:bg-primary-700 text-white rounded-full shadow-2xl font-semibold transition-all transform hover:scale-[1.02] active:scale-[0.98]"
@@ -38,7 +30,7 @@ const StickyCTA = () => {
         Initialize Project
         <ArrowRight className="ml-2 w-5 h-5" />
       </a>
-    </div>
+    </aside>
   );
 };
 

@@ -1,53 +1,117 @@
-import { MetadataRoute } from 'next';
-import { siteConfig } from '../config/site';
+import type { MetadataRoute } from 'next';
+import { siteConfig } from '@/config/site';
+import { prisma } from '@/lib/prisma';
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = [
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const baseUrl = siteConfig.url || 'https://harviitsolutions.com';
+
+  const staticRoutes: MetadataRoute.Sitemap = [
     '',
     '/about',
-    '/contact',
-    '/portfolio',
     '/services',
-    '/services/web-development',
+    '/services/ai-solutions',
     '/services/mobile-app-development',
     '/services/software-development',
-    '/services/ai-solutions',
-    '/blog',
+    '/services/web-development',
+    '/portfolio',
     '/case-studies',
+    '/blog',
+    '/contact',
     '/privacy',
     '/terms',
   ].map((route) => ({
-    url: `${siteConfig.url}${route}`,
-    lastModified: new Date().toISOString(),
-    changeFrequency: (route === '/privacy' || route === '/terms' ? 'yearly' : 'weekly') as MetadataRoute.Sitemap[number]['changeFrequency'],
-    priority: route === '' ? 1.0 : (route === '/privacy' || route === '/terms' ? 0.5 : 0.8),
+    url: `${baseUrl}${route}`,
+    lastModified: new Date(),
+    changeFrequency: (route === '' ? 'weekly' : route === '/privacy' || route === '/terms' ? 'yearly' : 'monthly') as MetadataRoute.Sitemap[number]['changeFrequency'],
+    priority: route === '' ? 1.0 : route.startsWith('/services') ? 0.9 : 0.7,
   }));
 
-  const blogSlugs = [
+  // Default fallback slugs in case database has no entries or is offline during build
+  const defaultBlogSlugs = [
     'future-of-enterprise-ai',
     'nextjs-vs-vite-performance',
     'scaling-crm-hubs',
   ];
-
-  const caseStudySlugs = [
+  const defaultCaseStudySlugs = [
     'global-logistics-erp',
     'fintech-predictive-ai',
   ];
 
-  const dynamicRoutes = [
-    ...blogSlugs.map((slug) => ({
-      url: `${siteConfig.url}/blog/${slug}`,
-      lastModified: new Date().toISOString(),
+  let blogRoutes: MetadataRoute.Sitemap = [];
+  let caseStudyRoutes: MetadataRoute.Sitemap = [];
+
+  try {
+    // Dynamically fetch published blog posts from Prisma
+    const posts = await prisma.blogPost.findMany({
+      where: { published: true },
+      select: { slug: true, updatedAt: true },
+    });
+
+    if (posts && posts.length > 0) {
+      blogRoutes = posts.map((post) => ({
+        url: `${baseUrl}/blog/${post.slug}`,
+        lastModified: post.updatedAt,
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+      }));
+    } else {
+      blogRoutes = defaultBlogSlugs.map((slug) => ({
+        url: `${baseUrl}/blog/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+      }));
+    }
+  } catch (error) {
+    console.warn('Prisma blog post fetch for sitemap failed, using static fallback:', error);
+    blogRoutes = defaultBlogSlugs.map((slug) => ({
+      url: `${baseUrl}/blog/${slug}`,
+      lastModified: new Date(),
       changeFrequency: 'weekly' as const,
-      priority: 0.7,
-    })),
-    ...caseStudySlugs.map((slug) => ({
-      url: `${siteConfig.url}/case-studies/${slug}`,
-      lastModified: new Date().toISOString(),
+      priority: 0.8,
+    }));
+  }
+
+  try {
+    // Dynamically fetch published case studies from Prisma
+    const cases = await prisma.caseStudy.findMany({
+      where: { published: true },
+      select: { slug: true, updatedAt: true },
+    });
+
+    if (cases && cases.length > 0) {
+      caseStudyRoutes = cases.map((item) => ({
+        url: `${baseUrl}/case-studies/${item.slug}`,
+        lastModified: item.updatedAt,
+        changeFrequency: 'monthly' as const,
+        priority: 0.8,
+      }));
+    } else {
+      caseStudyRoutes = defaultCaseStudySlugs.map((slug) => ({
+        url: `${baseUrl}/case-studies/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly' as const,
+        priority: 0.8,
+      }));
+    }
+  } catch (error) {
+    console.warn('Prisma case study fetch for sitemap failed, using static fallback:', error);
+    caseStudyRoutes = defaultCaseStudySlugs.map((slug) => ({
+      url: `${baseUrl}/case-studies/${slug}`,
+      lastModified: new Date(),
       changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    })),
+      priority: 0.8,
+    }));
+  }
+
+  const llmsRoute: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/llms.txt`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.5,
+    },
   ];
 
-  return [...routes, ...dynamicRoutes];
+  return [...staticRoutes, ...blogRoutes, ...caseStudyRoutes, ...llmsRoute];
 }

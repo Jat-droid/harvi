@@ -5,10 +5,86 @@ import ServiceFeatures from '../../../components/ServiceFeatures';
 import TechStack from '../../../components/TechStack';
 import ProcessTimeline from '../../../components/ProcessTimeline';
 import Portfolio from '../../../components/Portfolio';
+import GeoBlock from '../../../components/GeoBlock';
+import JsonLd from '../../../components/JsonLd';
+import { siteConfig } from '../../../config/site';
 
 export const metadata: Metadata = {
-  title: 'Custom Software Development Company | Global ERP & CRM Solutions',
+  title: 'Custom Software Development Company | Global ERP & CRM Solutions | Harvi',
   description: 'Top-rated custom software development company. We build bespoke Enterprise ERPs and CRM hubs that scale globally and automate your business operations.',
+  alternates: {
+    canonical: `${siteConfig.url}/services/software-development`,
+  },
+};
+
+const softwareSchemas = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      name: "Custom Software Development & ERP Engineering",
+      provider: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url,
+      },
+      serviceType: "Enterprise Software Engineering",
+      description: "Top-rated custom software development company. We build bespoke Enterprise ERPs and CRM hubs that scale globally and automate your business operations.",
+      url: `${siteConfig.url}/services/software-development`,
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: siteConfig.url,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Services",
+          item: `${siteConfig.url}/services`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Custom Software Development",
+          item: `${siteConfig.url}/services/software-development`,
+        },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "When should a business invest in custom software vs off-the-shelf?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Off-the-shelf software rarely fits complex business models perfectly. You should invest in custom software when existing tools create bottlenecks, force you to change your workflow, or fail to integrate securely with your other systems.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How much does custom software cost?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Our enterprise-grade custom software development starts from 20k. This includes full architecture planning, bespoke engineering, and seamless integration with your existing data systems.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How long does custom software take to build?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Using our Agile delivery methodology, we can deliver functional initial modules (MVPs) in just 10 to 15 days, allowing your team to start seeing ROI immediately while we scale the full platform.",
+          },
+        },
+      ],
+    },
+  ],
 };
 
 const softwareFaqs = [
@@ -68,6 +144,7 @@ const softwareProcess = [
 export default function SoftwareDevelopmentPage() {
   return (
     <main className="pt-24 pb-16 bg-white min-h-screen">
+      <JsonLd data={softwareSchemas} />
       <div className="max-w-4xl mx-auto px-6">
         <div className="mb-8">
           <Link href="/services" className="text-primary-600 hover:underline font-medium text-sm">
@@ -75,8 +152,13 @@ export default function SoftwareDevelopmentPage() {
           </Link>
         </div>
         
-        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">Custom Software Development</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Custom Software Development</h1>
         
+        {/* 40-to-60-word factual summary */}
+        <p className="text-lg text-slate-700 leading-relaxed font-medium bg-slate-50 border border-slate-200/80 rounded-2xl p-6 mb-12 shadow-sm">
+          Harvi develops enterprise-grade custom software, centralized ERP ecosystems, and automated CRM hubs built for mission-critical workflows. Utilizing Node.js, Python, PostgreSQL, Docker, and Kubernetes microservices, our senior engineering teams deliver resilient, scalable, and audit-compliant production modules within a focused 10-to-15-day launch sprint.
+        </p>
+
         <div className="prose prose-lg text-slate-600 max-w-none mb-16">
           <p className="text-xl leading-relaxed mb-8">
             Bespoke software engineering for complex business logic. We build resilient, scalable software systems tailored exactly to your unique operational needs.
@@ -107,6 +189,10 @@ export default function SoftwareDevelopmentPage() {
       
       <div className="mt-24">
         <Portfolio />
+      </div>
+
+      <div className="mt-20">
+        <GeoBlock />
       </div>
       
       <div className="max-w-4xl mx-auto px-6 mt-8">

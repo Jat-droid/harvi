@@ -3,10 +3,21 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const CustomCursor = () => {
+  const [enabled, setEnabled] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
+    // Return immediately if device is a touchscreen or prefers reduced motion (WCAG 2.2 AA / INP)
+    const isCoarse = window.matchMedia('(pointer: coarse)').matches;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (isCoarse || prefersReducedMotion) {
+      return;
+    }
+
+    requestAnimationFrame(() => setEnabled(true));
+
     const updateMousePosition = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
@@ -25,8 +36,8 @@ const CustomCursor = () => {
       }
     };
 
-    window.addEventListener('mousemove', updateMousePosition);
-    window.addEventListener('mouseover', handleMouseOver);
+    window.addEventListener('mousemove', updateMousePosition, { passive: true });
+    window.addEventListener('mouseover', handleMouseOver, { passive: true });
 
     return () => {
       window.removeEventListener('mousemove', updateMousePosition);
@@ -34,8 +45,10 @@ const CustomCursor = () => {
     };
   }, []);
 
+  if (!enabled) return null;
+
   return (
-    <>
+    <div aria-hidden="true" className="pointer-events-none">
       <motion.div
         className="fixed top-0 left-0 w-2 h-2 bg-primary-500 rounded-full pointer-events-none z-[9999]"
         animate={{
@@ -55,7 +68,7 @@ const CustomCursor = () => {
         }}
         transition={{ type: 'spring', stiffness: 150, damping: 15, mass: 0.5 }}
       />
-    </>
+    </div>
   );
 };
 

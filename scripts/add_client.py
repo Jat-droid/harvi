@@ -9,3 +9,4 @@ for filename in os.listdir(dir_path):
         if not content.startswith('"use client";'):
             with open(filepath, 'w', encoding='utf-8') as f:
                 f.write('"use client";\n' + content)
+

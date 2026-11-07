@@ -10,8 +10,8 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
         <div className="col-span-1 md:col-span-2">
           <Link href="/" className="text-2xl font-bold tracking-tight text-slate-900 mb-4 flex items-center w-fit">
-            <img src="/favicon.png" alt="Harvi IT Solutions Monogram Logo" className="h-10 w-auto object-contain mr-2" style={{ mixBlendMode: 'multiply' }} />
-            <img src="/logo.png" alt="Harvi IT Solutions Full Logo" className="h-14 w-auto object-contain" style={{ mixBlendMode: 'multiply' }} />
+            <img src="/icon.png" alt="Harvi IT Solutions Monogram Logo" className="h-10 w-auto object-contain mr-2" style={{ mixBlendMode: 'multiply' }} />
+            <img src="/logo.webp" alt="Harvi IT Solutions Full Logo" className="h-14 w-auto object-contain" style={{ mixBlendMode: 'multiply' }} />
           </Link>
           <p className="mt-4 max-w-sm text-sm leading-relaxed">
             Empowering businesses with enterprise-grade IT solutions, from custom apps to comprehensive ERPs. We blend startup agility with enterprise reliability.

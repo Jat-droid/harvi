@@ -5,10 +5,86 @@ import ServiceFeatures from '../../../components/ServiceFeatures';
 import TechStack from '../../../components/TechStack';
 import ProcessTimeline from '../../../components/ProcessTimeline';
 import Portfolio from '../../../components/Portfolio';
+import GeoBlock from '../../../components/GeoBlock';
+import JsonLd from '../../../components/JsonLd';
+import { siteConfig } from '../../../config/site';
 
 export const metadata: Metadata = {
-  title: 'React & Next.js Development Services | Web Dev for Startups',
+  title: 'React & Next.js Development Services | Web Dev for Startups | Harvi',
   description: 'Enterprise web architecture and React / Next.js development services. We build high-performance, scalable website solutions for global startups and enterprises.',
+  alternates: {
+    canonical: `${siteConfig.url}/services/web-development`,
+  },
+};
+
+const webSchemas = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      name: "Web Architecture & Development",
+      provider: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url,
+      },
+      serviceType: "Web Application Engineering",
+      description: "Enterprise web architecture and React / Next.js development services. We build high-performance, scalable website solutions for global startups and enterprises.",
+      url: `${siteConfig.url}/services/web-development`,
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: siteConfig.url,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Services",
+          item: `${siteConfig.url}/services`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Web Development",
+          item: `${siteConfig.url}/services/web-development`,
+        },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "How much does website development cost?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Our professional website development services start from 20k. This covers complete design, architecture, and deployment of a high-performance scalable web platform.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How long does it take to build a business website?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Our standard timeline for an enterprise-grade business website is 10 to 15 days, thanks to our agile methodology and pre-architected React components.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Which technology is best for a startup website?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "React and Next.js are the industry standards for startups. They provide unparalleled performance, robust SEO capabilities, and infinite scalability as your business grows.",
+          },
+        },
+      ],
+    },
+  ],
 };
 
 const webDevFaqs = [
@@ -80,6 +156,7 @@ const webProcess = [
 export default function WebDevelopmentPage() {
   return (
     <main className="pt-24 pb-16 bg-white min-h-screen">
+      <JsonLd data={webSchemas} />
       <div className="max-w-4xl mx-auto px-6">
         <div className="mb-8">
           <Link href="/services" className="text-primary-600 hover:underline font-medium text-sm">
@@ -87,8 +164,13 @@ export default function WebDevelopmentPage() {
           </Link>
         </div>
         
-        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">Web Architecture & Development</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Web Architecture & Development</h1>
         
+        {/* 40-to-60-word factual summary */}
+        <p className="text-lg text-slate-700 leading-relaxed font-medium bg-slate-50 border border-slate-200/80 rounded-2xl p-6 mb-12 shadow-sm">
+          Harvi engineers enterprise web platforms and full-stack cloud applications designed for high throughput, technical SEO, and sub-second load times. Utilizing React, Next.js, TypeScript, Node.js, and Tailwind CSS on edge networks, our agile development teams deliver production-grade platforms within a 10-to-15-day timeline.
+        </p>
+
         <div className="prose prose-lg text-slate-600 max-w-none mb-16">
           <p className="text-xl leading-relaxed mb-8">
             We specialize in creating robust, scalable, and secure web applications. From corporate portals to complex enterprise systems, our engineering team utilizes the latest in web technologies to deliver blazing-fast digital experiences.
@@ -119,6 +201,10 @@ export default function WebDevelopmentPage() {
       
       <div className="mt-24">
         <Portfolio />
+      </div>
+
+      <div className="mt-20">
+        <GeoBlock />
       </div>
       
       <div className="max-w-4xl mx-auto px-6 mt-8">

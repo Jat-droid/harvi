@@ -33,8 +33,8 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <Link href="/" className="text-2xl font-normal tracking-tight text-slate-900 flex items-center h-10">
-          <img src="/favicon.png" alt="Harvi IT Solutions Monogram Logo" className="h-12 w-auto object-contain mr-2" style={{ mixBlendMode: 'multiply' }} />
-          <img src="/logo.png" alt="Harvi IT Solutions Full Logo" className="h-10 w-auto object-contain scale-[1.6] origin-left" style={{ mixBlendMode: 'multiply' }} />
+          <img src="/icon.png" alt="Harvi IT Solutions Monogram Logo" className="h-12 w-auto object-contain mr-2" style={{ mixBlendMode: 'multiply' }} />
+          <img src="/logo.webp" alt="Harvi IT Solutions Full Logo" className="h-10 w-auto object-contain scale-[1.6] origin-left" style={{ mixBlendMode: 'multiply' }} />
         </Link>
 
         {/* Desktop Nav */}
@@ -58,8 +58,11 @@ const Navbar = () => {
 
         {/* Mobile Menu Toggle */}
         <button 
-          className="md:hidden text-slate-800"
+          className="md:hidden text-slate-800 p-2 focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-expanded={isMobileMenuOpen}
+          aria-controls="mobile-menu"
+          aria-label="Toggle navigation menu"
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -68,6 +71,7 @@ const Navbar = () => {
       {/* Mobile Nav */}
       {isMobileMenuOpen && (
         <motion.div 
+          id="mobile-menu"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           className="absolute top-full left-0 right-0 bg-white shadow-xl border-t border-slate-100 p-6 flex flex-col space-y-4 md:hidden"

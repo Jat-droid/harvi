@@ -1,0 +1,17 @@
+# Harvi
+
+> Harvi is a full-service technology and software engineering company specializing in AI solutions, custom software development, web application engineering, and mobile app development.
+
+## Core Services
+- [AI Solutions](https://harviitsolutions.com/services/ai-solutions): Custom AI agents, LLM integration, workflow automation, and predictive analytics.
+- [Software Development](https://harviitsolutions.com/services/software-development): Enterprise-grade backend architecture, SaaS platforms, APIs, and cloud systems.
+- [Web Development](https://harviitsolutions.com/services/web-development): High-performance Next.js and React web applications engineered for speed, accessibility, and SEO.
+- [Mobile App Development](https://harviitsolutions.com/services/mobile-app-development): Native and cross-platform iOS and Android applications.
+
+## Proof & Resources
+- [Case Studies](https://harviitsolutions.com/case-studies): Measurable client outcomes, architecture breakdowns, and ROI metrics.
+- [Portfolio](https://harviitsolutions.com/portfolio): Delivered production projects across industries.
+- [Technical Blog](https://harviitsolutions.com/blog): Engineering insights, AI implementation guides, and software architecture articles.
+- [About Harvi](https://harviitsolutions.com/about): Company background, engineering methodology, and leadership.
+- [Contact](https://harviitsolutions.com/contact): Project consultation and engineering inquiries.
+

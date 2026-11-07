@@ -3,7 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import ParticleNetwork from './ParticleNetwork';
+import dynamic from 'next/dynamic';
+
+const ParticleNetwork = dynamic(() => import('./ParticleNetwork'), {
+  ssr: false,
+});
 
 const services = [
   "App Development",

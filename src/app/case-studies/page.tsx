@@ -1,9 +1,24 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import JsonLd from '../../components/JsonLd';
+import { siteConfig } from '../../config/site';
 
 export const metadata: Metadata = {
   title: 'Case Studies | Harvi IT Solutions',
   description: 'Explore how Harvi IT Solutions has transformed enterprises with bespoke software and AI integration.',
+};
+
+const caseStudiesSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Harvi IT Solutions Case Studies",
+  description: "Explore how Harvi IT Solutions has transformed enterprises with bespoke software and AI integration.",
+  url: `${siteConfig.url}/case-studies`,
+  publisher: {
+    "@type": "Organization",
+    name: siteConfig.name,
+    url: siteConfig.url,
+  },
 };
 
 export default function CaseStudiesPage() {
@@ -14,6 +29,7 @@ export default function CaseStudiesPage() {
 
   return (
     <main className="pt-24 pb-16 bg-white min-h-screen">
+      <JsonLd data={caseStudiesSchema} />
       <div className="max-w-4xl mx-auto px-6">
         <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">Client Case Studies</h1>
         <p className="text-xl text-slate-600 mb-12">Real-world impact delivered through enterprise-grade software.</p>

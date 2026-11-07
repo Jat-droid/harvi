@@ -1,7 +1,6 @@
 "use client";
 import { useState } from 'react';
-import { Mail, MapPin, Phone } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Mail } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { submitContactForm } from '../app/actions/contact';
 
@@ -67,30 +66,69 @@ const Contact = () => {
             <div className="absolute inset-0 bg-primary-600 rounded-[2rem] transform rotate-3 opacity-10"></div>
             <div className="bg-white p-8 md:p-12 rounded-[2rem] shadow-xl relative z-10 border border-slate-100">
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Honeypot field for spam prevention */}
+                  <input 
+                    type="text" 
+                    name="_gotcha" 
+                    tabIndex={-1} 
+                    aria-hidden="true" 
+                    autoComplete="off" 
+                    className="sr-only opacity-0 absolute -z-10 pointer-events-none" 
+                  />
+
                   {error && (
-                    <div className="p-4 bg-red-50 text-red-600 rounded-xl border border-red-100 font-medium">
+                    <div id="form-error" role="alert" className="p-4 bg-red-50 text-red-600 rounded-xl border border-red-100 font-medium text-sm">
                       {error}
                     </div>
                   )}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">First Name</label>
-                      <input name="firstName" required type="text" className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all" placeholder="John" />
+                      <label htmlFor="firstName" className="block text-sm font-medium text-slate-700 mb-2">First Name</label>
+                      <input 
+                        id="firstName"
+                        name="firstName" 
+                        required 
+                        type="text" 
+                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-900" 
+                        placeholder="John" 
+                      />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">Last Name</label>
-                      <input name="lastName" required type="text" className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all" placeholder="Doe" />
+                      <label htmlFor="lastName" className="block text-sm font-medium text-slate-700 mb-2">Last Name</label>
+                      <input 
+                        id="lastName"
+                        name="lastName" 
+                        required 
+                        type="text" 
+                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-900" 
+                        placeholder="Doe" 
+                      />
                     </div>
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-2">Email Address</label>
-                    <input name="email" required type="email" className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all" placeholder="john@company.com" />
+                    <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">Email Address</label>
+                    <input 
+                      id="email"
+                      name="email" 
+                      required 
+                      type="email" 
+                      aria-invalid={error?.toLowerCase().includes('email') ? 'true' : 'false'}
+                      aria-describedby={error ? 'form-error' : undefined}
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-900" 
+                      placeholder="john@company.com" 
+                    />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-2">Service Interest</label>
-                    <select name="service" required defaultValue="" className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-700">
+                    <label htmlFor="service" className="block text-sm font-medium text-slate-700 mb-2">Service Interest</label>
+                    <select 
+                      id="service"
+                      name="service" 
+                      required 
+                      defaultValue="" 
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-700"
+                    >
                       <option value="" disabled>Select a service...</option>
                       <option value="app">Custom App Development</option>
                       <option value="web">Website Development</option>
@@ -101,8 +139,15 @@ const Contact = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-2">Message</label>
-                    <textarea name="message" required rows={4} className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all resize-none" placeholder="Tell us about your project..."></textarea>
+                    <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">Message</label>
+                    <textarea 
+                      id="message"
+                      name="message" 
+                      required 
+                      rows={4} 
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all resize-none text-slate-900" 
+                      placeholder="Tell us about your project..."
+                    />
                   </div>
 
                   <button 

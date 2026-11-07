@@ -1,16 +1,17 @@
 "use server";
 
-import { PrismaClient } from '@prisma/client';
 import { Resend } from 'resend';
-
-// Use a global instance in dev to prevent multiple connections
-const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
-export const prisma = globalForPrisma.prisma || new PrismaClient();
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+import { prisma } from '@/lib/prisma';
 
 const resend = new Resend(process.env.RESEND_API_KEY || 're_placeholder');
 
 export async function submitContactForm(formData: FormData) {
+  // Honeypot spam check
+  const honeypot = formData.get('_gotcha') as string;
+  if (honeypot && honeypot.trim().length > 0) {
+    return { success: true };
+  }
+
   const firstName = formData.get('firstName') as string;
   const lastName = formData.get('lastName') as string;
   const email = formData.get('email') as string;

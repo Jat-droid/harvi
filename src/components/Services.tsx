@@ -1,7 +1,7 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Smartphone, Globe, Users, Database, ArrowRight, CheckCircle2 } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Smartphone, Globe, Users, Database, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 const services = [

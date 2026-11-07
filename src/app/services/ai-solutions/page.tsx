@@ -5,10 +5,86 @@ import ServiceFeatures from '../../../components/ServiceFeatures';
 import TechStack from '../../../components/TechStack';
 import ProcessTimeline from '../../../components/ProcessTimeline';
 import Portfolio from '../../../components/Portfolio';
+import GeoBlock from '../../../components/GeoBlock';
+import JsonLd from '../../../components/JsonLd';
+import { siteConfig } from '../../../config/site';
 
 export const metadata: Metadata = {
-  title: 'AI Automation Services | Generative AI Integration',
+  title: 'AI Automation Services | Generative AI Integration | Harvi',
   description: 'Global AI automation services for modern businesses. We provide generative AI integration, custom LLMs, and machine learning to automate complex workflows.',
+  alternates: {
+    canonical: `${siteConfig.url}/services/ai-solutions`,
+  },
+};
+
+const aiSchemas = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      name: "AI Solutions & Neural Intelligence",
+      provider: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url,
+      },
+      serviceType: "AI Automation & LLM Integration",
+      description: "Global AI automation services for modern businesses. We provide generative AI integration, custom LLMs, and machine learning to automate complex workflows.",
+      url: `${siteConfig.url}/services/ai-solutions`,
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: siteConfig.url,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Services",
+          item: `${siteConfig.url}/services`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "AI Solutions",
+          item: `${siteConfig.url}/services/ai-solutions`,
+        },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "What is AI automation for businesses?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "AI automation involves integrating Machine Learning and Generative AI models (like custom LLMs) into your existing workflows to automate repetitive tasks, generate content dynamically, and synthesize complex data instantly.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How much do AI automation services cost?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Our custom AI automation and integration services start from 20k. The final architecture is tailored specifically to your enterprise data and security compliance requirements.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How long does it take to integrate AI into my business?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Utilizing our rapid deployment models, we can build, train, and integrate your initial AI automation workflows in just 10 to 15 days.",
+          },
+        },
+      ],
+    },
+  ],
 };
 
 const aiFaqs = [
@@ -73,6 +149,7 @@ const aiProcess = [
 export default function AISolutionsPage() {
   return (
     <main className="pt-24 pb-16 bg-white min-h-screen">
+      <JsonLd data={aiSchemas} />
       <div className="max-w-4xl mx-auto px-6">
         <div className="mb-8">
           <Link href="/services" className="text-primary-600 hover:underline font-medium text-sm">
@@ -80,8 +157,13 @@ export default function AISolutionsPage() {
           </Link>
         </div>
         
-        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">AI Solutions & Neural Intelligence</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">AI Solutions & Neural Intelligence</h1>
         
+        {/* 40-to-60-word factual summary */}
+        <p className="text-lg text-slate-700 leading-relaxed font-medium bg-slate-50 border border-slate-200/80 rounded-2xl p-6 mb-12 shadow-sm">
+          Harvi delivers enterprise AI solutions by integrating custom LLMs, predictive neural networks, and automated workflow agents directly into your software. Built using Python, PyTorch, LangChain, OpenAI APIs, and vector databases, our secure proprietary models achieve production deployment within a rapid 10-to-15-day sprint.
+        </p>
+
         <div className="prose prose-lg text-slate-600 max-w-none mb-16">
           <p className="text-xl leading-relaxed mb-8">
             Leverage the power of Artificial Intelligence. We implement predictive models, machine learning, and generative AI directly into your enterprise workflows.
@@ -112,6 +194,10 @@ export default function AISolutionsPage() {
       
       <div className="mt-24">
         <Portfolio />
+      </div>
+
+      <div className="mt-20">
+        <GeoBlock />
       </div>
       
       <div className="max-w-4xl mx-auto px-6 mt-8">

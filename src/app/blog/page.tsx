@@ -1,9 +1,24 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import JsonLd from '../../components/JsonLd';
+import { siteConfig } from '../../config/site';
 
 export const metadata: Metadata = {
   title: 'Insights & Blog | Harvi IT Solutions',
   description: 'Read the latest insights on enterprise AI, modern web architecture, and software development strategies.',
+};
+
+const blogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  name: "Harvi IT Solutions Engineering Blog",
+  description: "Expert perspectives on software architecture, artificial intelligence, and enterprise engineering.",
+  url: `${siteConfig.url}/blog`,
+  publisher: {
+    "@type": "Organization",
+    name: siteConfig.name,
+    url: siteConfig.url,
+  },
 };
 
 export default function BlogPage() {
@@ -15,6 +30,7 @@ export default function BlogPage() {
 
   return (
     <main className="pt-24 pb-16 bg-slate-50 min-h-screen">
+      <JsonLd data={blogSchema} />
       <div className="max-w-4xl mx-auto px-6">
         <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">Insights & Engineering Blog</h1>
         <p className="text-xl text-slate-600 mb-12">Expert perspectives on software architecture and artificial intelligence.</p>

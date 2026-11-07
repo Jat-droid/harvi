@@ -22,10 +22,14 @@ const CookieBanner = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-4 md:bottom-8 left-4 right-4 md:left-auto md:right-8 z-[100] md:max-w-sm bg-white p-6 rounded-2xl shadow-2xl border border-slate-100 animate-fade-in-up">
+    <aside 
+      aria-label="Cookie consent"
+      className="fixed bottom-4 md:bottom-8 left-4 right-4 md:left-auto md:right-8 z-[100] md:max-w-sm bg-white p-6 rounded-2xl shadow-2xl border border-slate-100 animate-fade-in-up"
+    >
       <button 
         onClick={() => setIsVisible(false)}
-        className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition-colors"
+        aria-label="Close cookie banner"
+        className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition-colors p-1"
       >
         <X size={20} />
       </button>
@@ -55,7 +59,7 @@ const CookieBanner = () => {
           </div>
         </div>
       </div>
-    </div>
+    </aside>
   );
 };
 
